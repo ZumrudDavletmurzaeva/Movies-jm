@@ -1,0 +1,36 @@
+.app {
+  display: flex;
+flex-direction: column;
+margin: auto;
+  width: 1010px;
+
+}
+
+@media screen and (max-width: 420px) {
+  .app{
+width:420px;
+  }
+}
+.center-layout {
+  display: flex;
+ flex-direction: column;
+align-items: center;
+margin-bottom: 70px;
+}
+
+.search-bar {
+  width: 900px;
+  margin-left: 16px;
+  margin-bottom: 8px;
+}
+
+
+@media screen and (max-width: 420px) {
+  .search-bar{
+width:380px;
+  }
+}
+
+ul {
+  padding: 0;
+}

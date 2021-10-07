@@ -1,0 +1,133 @@
+.movie-description {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 22px;
+  
+  color: #000000;
+  margin-bottom: auto;
+  }
+  
+  .movie-footer {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+  }
+  
+  .movie-rate {
+      align-self: flex-end;
+      flex-wrap: nowrap;
+  }
+
+  .movie-date {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 22px;
+    
+    display: flex;
+    align-items: center;
+    
+    color: #827E7E;    
+    }
+    
+    .movie-stats {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin: 12px 20px 0px 20px;
+    }
+    
+    .movie-genre {
+        border: 1px solid #D9D9D9;
+        padding: 3px 3px 2px 5px;
+        border-radius: 2px;
+        margin-right: 8px;
+    }
+    
+    .movie-header {
+        display: flex;
+        
+    }
+    
+    .title {
+        margin-right: auto;
+        font-size: 20px;
+        line-height: 28px;
+        box-sizing: border-box;
+    }
+    
+    .vote-average {
+        width: 30px;
+        height: 30px;
+        border: 2px solid;
+        border-radius: 15px;
+        padding-top: 2px;
+        text-align: center;
+        margin-left: 5px;
+    }
+.genre-style{
+    border: 1px solid #D9D9D9;
+    background: #FAFAFA;
+    cursor: pointer;
+    display: inline-block;
+     margin: 4px;
+    padding: 2px;
+}
+    .movie-container {
+   
+      font-family: sans-serif;
+      flex-grow: 1;
+      display: flex;
+      
+      margin-right: 20px;
+      margin-left: 20px;
+      margin-top: 25px;
+      margin-bottom:20px;
+      background-color: #fff;
+      overflow: hidden;
+      box-sizing: border-box;
+  }
+  
+  @media screen and  (max-width: 421px)  and (min-width: 1010px) {
+      .movie-container{
+    width: 100%;
+   
+      }
+      
+  }
+
+
+  .movie-img {
+      width: 170px;
+      object-fit: cover;
+  }
+  
+  @media screen and (max-width: 420px) {
+      .movie-img {
+    width: 30%;
+      }
+  }
+
+  .movie-desktop {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+       max-width: 268px;
+
+  }
+
+
+
+
+  .title_rate{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-weight: 500;
+    text-align: center;
+    line-height: 26px;
+    box-sizing: border-box;
+  }
