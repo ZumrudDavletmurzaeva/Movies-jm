@@ -24,9 +24,7 @@ export default class MovieItem extends Component {
     return '#66E900';
   };
 
-  this.getGenreNames = (genre, allMovieGenres) => {
-    return genre.map((id) => {
-      return allMovieGenres.map((genr) => {
+  this.getGenreNames = (genre, allMovieGenres) => genre.map((id) => allMovieGenres.map((genr) => {
         if (genr.id === id) {
           return (
             <span key={genr.id} className="genre-style">
@@ -36,9 +34,7 @@ export default class MovieItem extends Component {
           );
         }
         return '';
-      });
-    });
-  }
+      }))
 
   this.descriptionSmall = (description) => {
     const indexDescription = description.indexOf(' ', 150);
@@ -47,15 +43,13 @@ export default class MovieItem extends Component {
 
   this.componentDidUpdate = (prevProps) => {
     const { rating } = this.props;
+  
     if (rating !== prevProps.rating) {
       this.setState({
-        rating,
+        rating
       });
     }
   };
-
-
-
 
 
   }
@@ -74,8 +68,7 @@ export default class MovieItem extends Component {
 
     return (
       <MoviesServiceConsumer>
-        {(allMovieGenres) => {
-          return (
+        {(allMovieGenres) => (
             <li className="movie-container" key={movieId}>
               <img alt="" className="movie-img" src={`https://image.tmdb.org/t/p/w200${image}`} />
 
@@ -99,16 +92,15 @@ export default class MovieItem extends Component {
                     count={10}
                     allowHalf
                     className="movie-rate"
-                    allowClear={false}
-                    value={rating}
+                    defaultValue={rating}
                     onChange={(value) => 
-                    doRating(value, movieId)}
+                      doRating(value, movieId)
+                    }
                   />
                 </div>
               </div>
             </li>
-          );
-        }}
+          )}
       </MoviesServiceConsumer>
     );
   }

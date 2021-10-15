@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { Tabs, Pagination, Spin, Input } from 'antd';
 
@@ -20,15 +21,31 @@ export default class App extends Component {
     ratedMovies: [],
     ratingResults: 0,
     ratedMoviesPage: 1,
+  
   };
+
+
   
   moviesService = new MoviesService();
 
-  componentDidMount = async () => {
+  componentDidMount = async (page=1) => {
     this.moviesService = new MoviesService();
     this.debounced = debounce(this.search, 600);
     const allMovie = await this.moviesService.allGenres();
     this.allMovieGenres = await allMovie.genres;
+  
+
+    this.moviesService
+    .getListOfPopularMovies()
+    .then((data) => {
+      this.setState({
+        movies:[...data.results],  totalResults:data.total_results,
+        currentPage: page,
+        loading: false,
+        error: false,
+      
+  })
+})
   };
 
   // eslint-disable-next-line no-unused-vars
@@ -50,18 +67,21 @@ export default class App extends Component {
   search = async (page = 1) => {
     const { searchString } = this.state;
     if (!searchString) {
-      this.setState({
-        searchString: '',
-        currentPage: page,
-        movies: [],
-        totalResults: 0,
-        loading: false,
-        error: false,
-      });
+      this.moviesService
+      .getListOfPopularMovies(page)
+      .then((data) => {
+        this.setState({
+          movies:[...data.results],  totalResults:data.total_results,
+          currentPage: page,
+          loading: false,
+          error: false,
+    })
+  })
       return;
+    
     }
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=848f19ec462c9603da0ef77885fff95f&query=${searchString}&page=${page}`)
-      .then((data) => data.json())
+    this.moviesService
+    .searchMovies(searchString, page)
       .then((data) => {
         this.setState({
           movies: [...data.results],
@@ -92,22 +112,16 @@ export default class App extends Component {
   };
 
   getRatedMovies = async (page = 1) => {
-    const responseJson = await this.moviesService.getRatedMovies();
-    try {
-      const ratedMovies = await responseJson.results;
-      const ratingResults = await responseJson.total_results;
-
-      this.setState({
-        ratedMovies,
-        ratingResults,
-        ratedMoviesPage: page,
-      });
-    } catch (error) {
-      this.setState({
-        loading: false,
-        error: true,
-      });
-    }
+   this.moviesService
+   .getRatedMovies()
+   .then((data) => {
+    this.setState({
+      ratedMovies:[...data.results],  ratingResults:data.total_results,
+      ratedMoviesPage: page,
+   
+    })
+  })
+     .catch(this.handleError);
   };
 
   activekeyChange = (activeKey) => {
@@ -136,7 +150,7 @@ export default class App extends Component {
     const hasData = !(loading || error || movies === []);
     const didSearch = loading || error || movies !== [];
     const data = hasData && didSearch ? <MovieList doRating={this.makeRate} movies={movies} /> : null;
-    const contentRated = <MovieList movies={ratedMovies} doRating={this.makeRate} />;
+    const contentRated = ratedMovies === [] ? null : <MovieList movies={ratedMovies} doRating={this.makeRate} />;
 
     return (
       <div className="app">
